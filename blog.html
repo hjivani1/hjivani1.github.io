@@ -87,12 +87,12 @@
   </br>
   <!-- Body content here-->
   <div class="container">
-    <form method="POST">
+    <form name="myForm" onsubmit="return myFunction()">
       <div class="form-group">
         <label for="addTitle">Title of article/post</label><br>
-        <input class="form-control" type="text" id="addTitle" placeholder="Title" required></br></br>
+        <input class="form-control" type="text" name="addTitle" id="addTitle" placeholder="Title" required></br></br>
         <label for="addArticle">Write your article/post</label></br>
-        <textarea class="form-control" id="addArticle" placeholder="Write here..." rows="5" cols="30"
+        <textarea class="form-control" name="addArticle" id="addArticle" placeholder="Write here..." rows="5" cols="30"
           maxlength="5000"></textarea>
       </div>
 
@@ -138,28 +138,40 @@
   </div>
 
   <script>
+
+
     function myFunction() {
-      var title = document.getElementById("addTitle");
-      var article = document.getElementById("addArticle");
-      var mainContent = document.getElementById("mainContent");
 
-      var div = document.createElement("div");
-      div.className = "container card blog-post";
+      var name = document.forms["myForm"]["addTitle"];
+      var detail = document.forms["myForm"]["addArticle"];
+      if ((name.value == "" && detail.value == "") || (name.value == "" || detail.value == "")) {
+        window.alert("Please complete form fully.");
+        name.focus();
+        return false;
+      } else {
+        var title = document.getElementById("addTitle");
+        var article = document.getElementById("addArticle");
+        var mainContent = document.getElementById("mainContent");
 
-      var h2 = document.createElement("h2");
-      h2.className = "blog-post-title";
-      h2.innerHTML = title.value;
-      div.appendChild(h2);
+        var div = document.createElement("div");
+        div.className = "container card blog-post";
 
-      var p2 = document.createElement("p");
-      p2.innerHTML = article.value;
-      div.appendChild(p2);
+        var h2 = document.createElement("h2");
+        h2.className = "blog-post-title";
+        h2.innerHTML = title.value;
+        div.appendChild(h2);
 
-      mainContent.prepend(div);
+        var p2 = document.createElement("p");
+        p2.innerHTML = article.value;
+        div.appendChild(p2);
 
+        mainContent.prepend(div);
+      }
+      return true;
     }
   </script>
 
+  </script>
 
   </br>
   <!-- Footer -->
